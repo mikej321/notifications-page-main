@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap')
+
+// need 'Plus Jakarta Sans', sans-serif at 500 and 800
+
+// Primary Colors
+$red: hsl(1, 90%, 64%)
+$blue: hsl(219, 85%, 26%)
+
+// Neutral
+$white: hsl(0, 0%, 100%)
+$very_light_grayish_blue: hsl(210, 60%, 98%)
+$light_grayish_blue_1: hsl(211, 68%, 94%)
+$light_grayish_blue_2: hsl(205, 33%, 90%)
+$grayish_blue: hsl(219, 14%, 63%)
+$dark_grayish_blue: hsl(219, 12%, 42%)
+$very_dark_blue: hsl(224, 21%, 14%)
+
+// Font-sizes
+$font_size_paragraph: 16px
+
+*,
+*::before,
+*::after
+    box-sizing: border-box
+
+*
+    margin: 0
+    padding: 0
+    scroll-behavior: smooth
+
+html
+    font-size: 62.5%
+
+body
+    position: relative
+    font-family: 'Plus Jakarta Sans', sans-serif
+    font-size: 1.6rem
+    display: flex
+    flex-direction: column
+    align-items: center
+    
+@media screen and (min-width: 600px)
+    body
+        background: $very_light_grayish_blue
+
+img
+    width: 100%
+    height: auto
+    object-fit: cover
+
+// unread comments will have the unread data attribute to give it a light blue background
+.container
+    max-width: 32.75rem
+    display: grid
+    grid-template-areas: "header" "main"
+    padding: 2rem 1rem
+    gap: 2rem
+
+@media screen and (min-width: 600px)
+    .container
+        margin-top: 5rem
+        max-width: 56rem
+        background: $white
+        border-radius: 12px
+        padding: 3rem 2rem .5rem
+
+header
+    grid-area: header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    .counter_container
+        display: flex
+        align-items: center
+        gap: .75rem
+        h1
+            font-size: 1.8rem
+            font-weight: 800
+        .notification_counter
+            background: $blue
+            color: $white
+            padding-block: .15rem
+            padding-inline: 1rem
+            border-radius: 4px
+            font-weight: 800
+    a
+        text-decoration: none
+        font-size: 1.4rem
+        color: $dark_grayish_blue
+        letter-spacing: -0.5px
+        transition: color 0.2s ease-in-out
+        &:hover
+            color: $blue
+
+main
+    grid-area: main
+    display: grid
+    gap: 1rem
+    .notification_container
+        display: flex
+        align-items: center
+        font-size: 1.3rem
+        padding: 1rem
+        gap: 1rem
+        border-radius: 8px
+        &[unread=""]
+            background: $very_light_grayish_blue
+        .user_img
+            max-width: 3.5rem
+            height: 3.5rem
+            align-self: baseline
+        .post_container
+            display: flex
+            flex-direction: column
+            gap: .25rem
+            color: $dark_grayish_blue
+            width: 100%
+            & p:first-child .user_name
+                color: $very_dark_blue
+                font-weight: 800
+                margin-right: .25rem
+            & p:first-child .user_event
+                font-weight: 800
+                margin-left: .25rem
+            & p:first-child .user_group
+                font-weight: 800
+                color: $blue
+                margin-left: .25rem
+            .date_posted
+                color: $grayish_blue
+            .private_message
+                margin-top: .5rem
+                border: 1px solid $light_grayish_blue_2
+                padding: 1rem 2rem 1rem 1rem
+                font-size: 1.3rem
+                border-radius: 4px
+                cursor: pointer
+                transition: background 0.2s ease-in-out
+        .pic_comment
+            max-width: 3.5rem
+            height: 3.5rem
+            align-self: baseline
+            cursor: pointer
+            transition: padding 0.05s ease-in-out
+            &:hover
+                border: 1px solid $light_grayish_blue_2
+                padding: .1rem
+                border-radius: 4px
+
+main .notification_container .post_container p a
+    cursor: pointer
+    transition: color 0.2s ease-in-out
+
+main .notification_container .post_container p:hover a:hover
+    color: $blue
+
+main .notification_container .post_container .private_message:hover
+    background: $light_grayish_blue_1
+
+@media screen and (min-width: 600px)
+    main .notification_container .post_container .private_message
+        padding: 1.5rem 
+
+main .notification_container .post_container p:first-child .unread_dot
+    display: none
+    
+main .notification_container[unread=""] .post_container p:first-child .unread_dot
+    display: inline-block
+    width: 100%
+    max-width: .75rem
+    height: .75rem
+    border-radius: 50%
+    background: $red
+    margin-left: .5rem
+
+.attribution
+    position: fixed
+    bottom: 2rem
