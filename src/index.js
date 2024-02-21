@@ -18,12 +18,13 @@ class Notifications {
         this.unread--;
         notificationCounter.textContent = this.unread;
     }
-
+    
     reduceUnreadToZero() {
         const notificationCounter = document.querySelector('.notification_counter');
         
         this.unread = 0;
         notificationCounter.textContent = this.unread;
+        notificationContainers.forEach(container => container.removeAttribute('unread'));
     }
 }
 
