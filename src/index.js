@@ -14,17 +14,23 @@ class Notifications {
     
     reduceUnreadByStep() {
         const notificationCounter = document.querySelector('.notification_counter');
+        let notificationValue = Number(notificationCounter.textContent)
 
-        this.unread--;
-        notificationCounter.textContent = this.unread;
+        if (notificationValue > 0) {
+            this.unread--;
+            notificationCounter.textContent = this.unread;
+        }
     }
     
     reduceUnreadToZero() {
         const notificationCounter = document.querySelector('.notification_counter');
+        let notificationValue = Number(notificationCounter.textContent);
         
-        this.unread = 0;
-        notificationCounter.textContent = this.unread;
-        notificationContainers.forEach(container => container.removeAttribute('unread'));
+        if (notificationValue > 0) {
+            this.unread = 0;
+            notificationCounter.textContent = this.unread;
+            notificationContainers.forEach(container => container.removeAttribute('unread'));
+        }
     }
 }
 
