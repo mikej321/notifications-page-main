@@ -7,6 +7,18 @@ const userEvents = document.querySelectorAll('.user_event');
 const readMarker = document.querySelector('.read_marker');
 const notificationContainers = document.querySelectorAll('.notification_container');
 
+// How long I want the animation to take, in ms
+const animationDuration = 2000;
+
+// Calculate how long each 'frame' should last
+const frameDuration = 1000 / 60;
+
+// Use that to calculate how many frames to complete the animation
+const totalFrames = Math.round(animationDuration / frameDuration);
+
+// An ease-out function that slows the count as it progresses
+const easeOutQuad = t => t * (2 - t);
+
 class Notifications {
     constructor() {
         this.unread = notificationCounter.textContent;
@@ -18,7 +30,7 @@ class Notifications {
 
         if (notificationValue > 0) {
             this.unread--;
-            notificationCounter.textContent = this.unread;
+            animateCountDownByOne(notificationCounter, this.unread);
         }
     }
     
@@ -27,8 +39,9 @@ class Notifications {
         let notificationValue = Number(notificationCounter.textContent);
         
         if (notificationValue > 0) {
+            animateCountDownToZero(notificationCounter, this.unread)
             this.unread = 0;
-            notificationCounter.textContent = this.unread;
+            // notificationCounter.textContent = this.unread;
             notificationContainers.forEach(container => container.removeAttribute('unread'));
         }
     }
@@ -43,6 +56,29 @@ user_group/user_event, it will mark it as read as well. */
 // Reduces the notifications counter decreases to 0 if clicking Mark all as read
 
 const userNotifications = new Notifications();
+
+function animateCountDownByOne(el, diff) {
+    let countTo = parseInt(diff, 10);
+    // Start the animation running 60 times per second
+    const counter = setInterval(() => {
+        // If the current count has changed, update the element
+    
+        el.textContent = countTo--;
+        clearInterval(counter)
+    }, 150);
+}
+
+function animateCountDownToZero(el, diff) {
+    let countTo = parseInt(diff, 10);
+    for (let i = countTo; i >= 0; i--) {
+        const counter = setInterval(() => {
+            el.textContent = countTo--;
+            clearInterval(counter)
+        }, 200)
+    }
+}
+
+
 
 // Event listener for "Mark all as read" that reduces counter to 0 by calling reduceUnreadToZero
 
@@ -92,3 +128,5 @@ userEvents.forEach((event) => {
         }
     })
 })
+
+// make it so that the counter reduces slower like in my last project instead of instantly
